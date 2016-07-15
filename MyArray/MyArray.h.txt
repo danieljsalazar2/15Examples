@@ -1,0 +1,33 @@
+//
+// MyArray.h
+//
+// Keith Mehl
+// 10/18/09
+// CSCI-15 Example program, a simple int array class
+//
+
+#ifndef MYARRAY_H  // header sandwich - prevent multiple inclusion
+#define MYARRAY_H
+
+#include <iostream>
+using namespace std;
+
+class MyArray
+{
+private:
+    int *a;     // a holds the array of ints
+    int n;      // n is number of elements in array
+public:
+    MyArray();                       // default constructor
+    MyArray( int num );              // normal constructor
+    MyArray( const MyArray &m );           // copy constructor
+    ~MyArray();                      // destructor
+    int &At( int pos );              // get value at position pos
+    int &operator []( int pos );     // operator [], equivalent to At()
+    int size( void ) const;          // return number of elements in the array
+    MyArray &operator =( const MyArray &rhs ); // deep copy
+};
+
+#endif // def MYARRAY_H
+
+

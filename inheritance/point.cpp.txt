@@ -1,0 +1,74 @@
+//
+// point.cpp
+//
+// Keith Mehl
+// 10/28/08
+// CSCI-15 Example program
+// A simple point class
+//
+
+#include <iostream>
+#include <cmath>
+using std::ostream;
+using std::flush;
+using std::sqrt;
+
+#include "point.h"
+
+// default constructor
+Point::Point()
+{
+   x = y = 0.0;
+}
+
+// normal constructor
+Point::Point( double xVal, double yVal )
+{
+   setAll( xVal, yVal );
+}
+
+// manipulators - set x, set y, set both x and y
+void Point::setX( double xVal )
+{
+   x = xVal;
+   return;
+}
+
+void Point::setY( double yVal )
+{
+   y = yVal;
+   return;
+}
+
+void Point::setAll( double xVal, double yVal )
+{
+   x = xVal;
+   y = yVal;
+   return;
+}
+
+// observers - get value of x and y
+double Point::getX( void ) const
+{
+   return x;
+}
+
+double Point::getY( void ) const
+{
+   return y;
+}
+
+// return distance between self and b
+double Point::distance( Point b )
+{
+   return sqrt( (x - b.x) * (x - b.x) + (y - b.y) * (y - b.y) );
+}
+
+
+// observer - print in format ( x, y )
+ostream &operator <<( ostream &out, const Point &p )
+{
+   out << "( " << p.x << ", " << p.y << " )" << flush;
+   return out;
+}
+

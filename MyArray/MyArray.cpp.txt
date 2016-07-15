@@ -1,0 +1,102 @@
+//
+// MyArray.cpp
+//
+// Keith Mehl
+// 10/18/09
+// CSCI-15 Example program
+// MyArray implementation file - a simple 1-d array class
+//
+#include <iostream>
+#include "MyArray.h"    // "" around header means "look in current directory first"
+using namespace std;
+
+// default to an array of 10 integers, fill with 0
+MyArray::MyArray()
+{
+    int i;
+    a = new int[10];    // new allocates RAM from system heap, [] says allocate an array
+    n = 10;
+    for( i = 0; i < 10; i++ )
+    {
+        a[i] = 0;       // initialize array to all 0
+    }
+}
+
+// allocate array of a size requested by the client if legal, fill with 0
+MyArray::MyArray( int num )
+{
+    int i;
+    if( num <= 0 ) // if illegal, set to default
+    {
+        num = 10;
+    }
+    a = new int[num];
+    n = num;
+    for( i = 0; i < num; i++ )
+    {
+        a[i] = 0;       // initialize array to all 0
+    }    
+}
+
+// copy constructor - invoke deep copy asignment
+MyArray::MyArray( const MyArray &m )
+{
+   *this = m;
+}
+
+// destructor - needed to deallocate RAM allocated in constructors
+MyArray::~MyArray()
+{
+    delete[] a;
+}
+
+// get value at position pos
+int &MyArray::At( int pos )
+{
+    if( pos < 0 || pos > n )
+    {
+        cout << "Illegal index, pos = " << pos << endl;
+        exit( -1 );
+    }
+    return a[pos];
+}
+
+// get value at position pos using [] indexing operator
+int & MyArray::operator []( int pos )
+{
+    if( pos < 0 || pos > n )
+    {
+        cout << "Illegal index, pos = " << pos << endl;
+        exit( -1 );
+    }
+    return a[pos];
+}
+
+// return size, const here means it cannot change self
+int MyArray::size( void ) const 
+{
+    return n;
+}
+
+// deep copy - REQUIRED if allocated RAM is used by object!
+MyArray &MyArray::operator =( const MyArray &rhs )
+{
+    int i;
+    if( &rhs == this ) // assignment to self?
+    {
+        return *this;  // if so, don't assign, just return self
+    }
+    if( rhs.n != n )   // rhs not the same size as myself?
+    {
+        delete[] a;    // yes, clear out my data and reallocate to match
+        a = new int[rhs.n];
+        n = rhs.n;
+    }
+    for( i = 0; i < rhs.n; i++ )  // copy all elements
+    {
+        a[i] = rhs.a[i];
+    }
+    return *this;      // allow a = b = c; assignment
+}
+
+

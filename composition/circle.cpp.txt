@@ -1,0 +1,56 @@
+//
+// circle.cpp
+//
+// Keith Mehl
+// 10/29/13
+// implement a simple circle class
+//
+
+#include <iostream>
+#include <cmath>
+#include "circle.h"
+using namespace std;
+const double PI = 3.14159265358979;
+
+// print ( x, y ), r radius
+ostream &operator <<( ostream &out, Circle &c )
+{
+   out << c.center << ", r " << c.radius << flush;
+   return out;
+}
+
+// read point as ( x, y ) , radius
+istream &operator >>( istream &in, Circle &c )
+{
+   char d;
+   in >> c.center >> d >> c.radius;
+   return in;
+}
+
+Circle::Circle() : center()
+{
+   radius = 1.0;
+}
+
+Circle::Circle( double x, double y, double r ) : center( x, y )
+{
+   radius = r;
+}
+
+void Circle::SetAll( double x, double y, double r )
+{
+   center.SetAll( x, y );
+   radius = r;
+   return;
+}
+
+double Circle::Area()
+{
+   return PI * radius * radius;
+}
+
+double Circle::Circumference()
+{
+   return 2.0 * PI * radius;
+}
+
